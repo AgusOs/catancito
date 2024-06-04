@@ -2,9 +2,8 @@
 CREATE TABLE "user" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
-    "user_name" TEXT,
+    "user_name" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "profile_img" TEXT,
     "wins" INTEGER,
     "total_games" INTEGER,
 
@@ -15,9 +14,9 @@ CREATE TABLE "user" (
 CREATE TABLE "match" (
     "id" SERIAL NOT NULL,
     "creatorId" INTEGER NOT NULL,
+    "created_at" TEXT,
     "players" INTEGER[],
-    "crated_at" TEXT,
-    "winnerId" TEXT NOT NULL,
+    "winnerId" INTEGER NOT NULL,
 
     CONSTRAINT "match_pkey" PRIMARY KEY ("id")
 );

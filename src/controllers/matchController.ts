@@ -21,12 +21,14 @@ export const createMatch = async (req: Request, res: Response): Promise<void> =>
             return
         }
 
+        let now = new Date().toLocaleString()
         const match = await prisma.create(
             {
                 data:{
-                    creatorId,
+                    creatorId, 
                     players,
                     winnerId,
+                    created_at: now
                 }
             }
         )
@@ -34,6 +36,8 @@ export const createMatch = async (req: Request, res: Response): Promise<void> =>
         res.status(200).json(match)
 
     } catch (error) {
+
+        console.log(error)
 
         res.status(500).json(
             {
@@ -43,4 +47,55 @@ export const createMatch = async (req: Request, res: Response): Promise<void> =>
         
     }
 
+}
+
+export const getAllMatches = async (req: Request, res: Response) : Promise<void> => {
+
+    try {
+
+        const matches = await prisma.findMany()
+        res.status(200).json(matches);
+        
+    } catch (error: any) {
+
+        console.log(error)
+        res.status(500).json(
+            {
+                error: 'Hubo un error, reintente mas tarde'
+            }
+        )
+        
+    }
+
+}
+
+export const deleteMatch = async (req: Request, res: Response): Promise<void> => {
+
+    const matchId = parseInt(req.params.id)
+
+    try {
+        await prisma.delete({
+            where: {
+                id: matchId
+            }
+        })
+
+        res.status(200).json({
+            message: `La partida ha sido eliminada`
+        }).end()
+
+    } catch (error: any) {
+
+        if(error?.code === 'P2025'){
+            res.status(404).json('Partida no encontrada')
+        }else {
+            console.log(error)
+            res.status(500).json(
+                {
+                    error: 'Hubo un error, reintente mas tarde'
+                }
+            )
+        }
+
+    }
 }

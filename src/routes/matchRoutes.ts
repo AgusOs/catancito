@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { createMatch } from '../controllers/matchController';
+import { createMatch, deleteMatch, getAllMatches } from '../controllers/matchController';
 
 const router = express.Router()
 const JWT_SECRET = process.env.JWT_SECRET || 'default-secret'
@@ -30,5 +30,7 @@ const authToken = (req: Request, res: Response, next: NextFunction) => {
 
 //TODO definir rutas
 router.post('/', authToken, createMatch)
+router.get('/', authToken, getAllMatches)
+router.delete('/:id', authToken, deleteMatch)
 
 export default router;
