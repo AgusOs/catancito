@@ -43,7 +43,7 @@ export const register = async(req: Request, res: Response): Promise<void> => {
         )
 
         const token = generateToken(user)
-        res.status(201).json({ token })
+        res.status(201).json({ token, user })
 
     } catch (error: any) {
 
@@ -105,7 +105,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         }
 
         const token = generateToken(user)
-        res.status(200).json({ token })
+        res.status(200).json({ token, user })
 
     } catch (error:any) {
         console.log('Error: ', error)

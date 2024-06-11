@@ -205,3 +205,7 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
 
     }
 }
+
+export const getProfile = async (req: Request, res: Response): Promise<void> => {
+    
+}
