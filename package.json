@@ -5,7 +5,9 @@
   "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsnd --respawn --clear src/server.ts"
+    "dev": "tsnd --respawn --clear src/server.ts",
+    "start": "node dist/server.js",
+    "build": "rimraf .dist/ && tsc"
   },
   "author": "AgusOs",
   "license": "ISC",
